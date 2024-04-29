@@ -4,7 +4,31 @@ import { Question } from '@/domain/forum/enterprise/entities/question'
 export class InMemoryQuestionsRepository implements QuestionsRepository {
   public items: Question[] = []
 
+  async save(question: Question): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id.toString() === question.id.toString())
+
+    this.items[itemIndex] = question
+  }
+
+  async findById(id: string) {
+    const question = this.items.find(item => item.id.toString() === id)
+
+    return question || null
+  }
+
+  async findBySlug(slug: string) {
+    const question = this.items.find(item => item.slug.value === slug)
+
+    return question || null
+  }
+
   async create(question: Question): Promise<void> {
     this.items.push(question)
+  }
+
+  async delete(question: Question) {
+    const itemIndex = this.items.findIndex(item => item.id.toString() === question.id.toString())
+
+    this.items.splice(itemIndex, 1)
   }
 }
