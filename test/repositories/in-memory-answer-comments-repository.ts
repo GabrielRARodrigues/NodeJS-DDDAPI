@@ -1,16 +1,16 @@
-import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
 import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
+import { PaginationParams } from '@/core/repositories/pagination-params'
 
 export class InMemoryAnswerCommentsRepository
-  implements AnswerCommentsRepository
+implements AnswerCommentsRepository
 {
   public items: AnswerComment[] = []
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const answerComment = this.items.find(item => item.id.toString() === id)
 
-    return question || null
+    return answerComment || null
   }
 
   async findManyByAnswerId(answerId: string, { page }: PaginationParams) {

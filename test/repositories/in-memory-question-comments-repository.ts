@@ -1,15 +1,15 @@
-import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository'
 import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
+import { PaginationParams } from '@/core/repositories/pagination-params'
 
 export class InMemoryQuestionCommentsRepository implements QuestionCommentsRepository
 {
   public items: QuestionComment[] = []
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const questionComment = this.items.find(item => item.id.toString() === id)
 
-    return question || null
+    return questionComment || null
   }
 
   async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
